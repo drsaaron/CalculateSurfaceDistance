@@ -94,7 +94,15 @@ public class CalculateAngularDistancePABImplTest {
         Coordinate firstCoordinate = buildCoordinate(firstCoordinateString);
         Coordinate secondCoordinate = buildCoordinate(secondCoordinateString);
         double result = pab.calculateDistance(firstCoordinate, secondCoordinate);
-        assertEquals(expectedDistance, Math.round(result), 0.0);
+        assertEquals(expectedDistance, result, 0.0);
     }
     
+    @Test
+    public void test0Distance() {
+        logger.info("test0Distance");
+        
+        Coordinate c = buildCoordinate(firstCoordinateString);
+        double result = pab.calculateDistance(c, c);
+        assertEquals(0, result, 0.0);
+    }
 }

@@ -42,7 +42,7 @@ public class CalculateAngularDistancePABImpl implements CalculateAngularDistance
         double term2 = Math.sin(delLongitude / 2);
 
         double delSigma = 2 * Math.asin(Math.sqrt(Math.pow(term1, 2) + Math.cos(firstLatitude) * Math.cos(secondLatitude) * Math.pow(term2, 2)));
-        double myDistance = EARTH_RADIUS * delSigma;
+        double myDistance = Math.round(EARTH_RADIUS * delSigma);
         
         return myDistance;
     }
