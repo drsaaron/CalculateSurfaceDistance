@@ -9,9 +9,11 @@ import com.blazartech.products.calculateangulardistance.calc.CalculateAngularDis
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,7 +28,8 @@ public class AngularDistanceService {
     @Autowired
     private CalculateAngularDistancePAB calculator;
     
-    @RequestMapping(value = "/distance", method = RequestMethod.POST)
+    @PostMapping(value = "/distance")
+    @ResponseStatus(HttpStatus.CREATED)
     public AngularDistance getDistance(@RequestBody AngularDistance distance) {
         logger.info("calculating distance between " + distance.getFirstCoordinate() + " and " + distance.getSecondCoordinate());
         
