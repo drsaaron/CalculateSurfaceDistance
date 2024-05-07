@@ -86,8 +86,8 @@ public class AngularDistanceServiceTest {
     private Coordinate buildCoordinate(String coordinateString) {
         String[] pieces = coordinateString.split(",");
         Coordinate c = new Coordinate();
-        c.setLatitude(Double.valueOf(pieces[0]));
-        c.setLongitude(Double.valueOf(pieces[1]));
+        c.setLatitude(Double.parseDouble(pieces[0]));
+        c.setLongitude(Double.parseDouble(pieces[1]));
         return c;
     }
     
@@ -114,6 +114,7 @@ public class AngularDistanceServiceTest {
         AngularDistance distance = new AngularDistance();
         distance.setFirstCoordinate(firstCoordinate);
         distance.setSecondCoordinate(secondCoordinate);
+        distance.setUnit(DistanceUnit.miles);
         
         try {
             MvcResult result = mockMvc

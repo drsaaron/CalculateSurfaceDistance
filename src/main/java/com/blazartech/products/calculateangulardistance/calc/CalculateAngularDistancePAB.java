@@ -6,6 +6,7 @@
 package com.blazartech.products.calculateangulardistance.calc;
 
 import com.blazartech.products.calculateangulardistance.Coordinate;
+import com.blazartech.products.calculateangulardistance.DistanceUnit;
 
 /**
  *
@@ -13,5 +14,5 @@ import com.blazartech.products.calculateangulardistance.Coordinate;
  */
 public interface CalculateAngularDistancePAB {
     
-    public double calculateDistance(Coordinate firstCoordinate, Coordinate secondCoordinate);
+    public double calculateDistance(Coordinate firstCoordinate, Coordinate secondCoordinate, DistanceUnit unit);
 }

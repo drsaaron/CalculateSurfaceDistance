@@ -16,7 +16,16 @@ public class AngularDistance implements Serializable {
     private Coordinate firstCoordinate;
     private Coordinate secondCoordinate;
     private double distance;
+    private DistanceUnit unit;
 
+    public DistanceUnit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(DistanceUnit unit) {
+        this.unit = unit;
+    }
+    
     public Coordinate getFirstCoordinate() {
         return firstCoordinate;
     }

@@ -6,6 +6,7 @@
 package com.blazartech.products.calculateangulardistance.calc;
 
 import com.blazartech.products.calculateangulardistance.Coordinate;
+import static com.blazartech.products.calculateangulardistance.DistanceUnit.miles;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -18,10 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
@@ -29,14 +29,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  * @author AAR1069
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {
-    CalculateAngularDistancePABImplTest.CalculateAngularDistancePABImplTestConfiguration.class
-})
 public class CalculateAngularDistancePABImplTest {
     
     private static final Logger logger = LoggerFactory.getLogger(CalculateAngularDistancePABImplTest.class);
     
-    @Configuration
+    @TestConfiguration
     @PropertySource("classpath:test.properties")
     static class CalculateAngularDistancePABImplTestConfiguration {
         
@@ -61,8 +58,8 @@ public class CalculateAngularDistancePABImplTest {
     private Coordinate buildCoordinate(String coordinateString) {
         String[] pieces = coordinateString.split(",");
         Coordinate c = new Coordinate();
-        c.setLatitude(Double.valueOf(pieces[0]));
-        c.setLongitude(Double.valueOf(pieces[1]));
+        c.setLatitude(Double.parseDouble(pieces[0]));
+        c.setLongitude(Double.parseDouble(pieces[1]));
         return c;
     }
     
@@ -94,7 +91,7 @@ public class CalculateAngularDistancePABImplTest {
         
         Coordinate firstCoordinate = buildCoordinate(firstCoordinateString);
         Coordinate secondCoordinate = buildCoordinate(secondCoordinateString);
-        double result = pab.calculateDistance(firstCoordinate, secondCoordinate);
+        double result = pab.calculateDistance(firstCoordinate, secondCoordinate, miles);
         assertEquals(expectedDistance, result, 0.0);
     }
     
@@ -103,7 +100,7 @@ public class CalculateAngularDistancePABImplTest {
         logger.info("test0Distance");
         
         Coordinate c = buildCoordinate(firstCoordinateString);
-        double result = pab.calculateDistance(c, c);
+        double result = pab.calculateDistance(c, c, miles);
         assertEquals(0, result, 0.0);
     }
 }

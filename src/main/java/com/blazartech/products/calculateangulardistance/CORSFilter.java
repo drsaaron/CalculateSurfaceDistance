@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  *
  * @author AAR1069
  */
-@Component
+//@Component
 public class CORSFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(CORSFilter.class);

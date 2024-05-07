@@ -10,9 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author AAR1069
  */
 @RestController
+@CrossOrigin
 public class AngularDistanceService {
     
     private static final Logger logger = LoggerFactory.getLogger(AngularDistanceService.class);
@@ -33,7 +34,7 @@ public class AngularDistanceService {
     public AngularDistance getDistance(@RequestBody AngularDistance distance) {
         logger.info("calculating distance between " + distance.getFirstCoordinate() + " and " + distance.getSecondCoordinate());
         
-        double angularDistance = calculator.calculateDistance(distance.getFirstCoordinate(), distance.getSecondCoordinate());
+        double angularDistance = calculator.calculateDistance(distance.getFirstCoordinate(), distance.getSecondCoordinate(), distance.getUnit());
         distance.setDistance(angularDistance);
         return distance;
     }
