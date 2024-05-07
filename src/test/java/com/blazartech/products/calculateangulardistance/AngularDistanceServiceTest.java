@@ -91,9 +91,10 @@ public class AngularDistanceServiceTest {
         return c;
     }
     
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    static String asJsonString(final Object obj) {
+    private String asJsonString(final Object obj) {
         try {
             return objectMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
