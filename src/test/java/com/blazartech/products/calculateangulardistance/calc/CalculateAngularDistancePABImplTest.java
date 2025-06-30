@@ -7,6 +7,7 @@ package com.blazartech.products.calculateangulardistance.calc;
 
 import com.blazartech.products.calculateangulardistance.Coordinate;
 import static com.blazartech.products.calculateangulardistance.DistanceUnit.miles;
+import java.math.BigDecimal;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -53,7 +54,7 @@ public class CalculateAngularDistancePABImplTest {
     private String secondCoordinateString;
     
     @Value("${expectedDistance}")
-    private double expectedDistance;
+    private BigDecimal expectedDistance;
     
     private Coordinate buildCoordinate(String coordinateString) {
         String[] pieces = coordinateString.split(",");
@@ -91,8 +92,8 @@ public class CalculateAngularDistancePABImplTest {
         
         Coordinate firstCoordinate = buildCoordinate(firstCoordinateString);
         Coordinate secondCoordinate = buildCoordinate(secondCoordinateString);
-        double result = pab.calculateDistance(firstCoordinate, secondCoordinate, miles);
-        assertEquals(expectedDistance, result, 0.0);
+        BigDecimal result = pab.calculateDistance(firstCoordinate, secondCoordinate, miles);
+        assertEquals(expectedDistance.doubleValue(), result.doubleValue(), 0.0);
     }
     
     @Test
@@ -100,7 +101,7 @@ public class CalculateAngularDistancePABImplTest {
         logger.info("test0Distance");
         
         Coordinate c = buildCoordinate(firstCoordinateString);
-        double result = pab.calculateDistance(c, c, miles);
-        assertEquals(0, result, 0.0);
+        BigDecimal result = pab.calculateDistance(c, c, miles);
+        assertEquals(0, result.doubleValue(), 0.0);
     }
 }

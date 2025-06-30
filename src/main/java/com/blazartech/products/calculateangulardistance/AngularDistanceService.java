@@ -6,6 +6,7 @@
 package com.blazartech.products.calculateangulardistance;
 
 import com.blazartech.products.calculateangulardistance.calc.CalculateAngularDistancePAB;
+import java.math.BigDecimal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class AngularDistanceService {
     public AngularDistance getDistance(@RequestBody AngularDistance distance) {
         logger.info("calculating distance between " + distance.getFirstCoordinate() + " and " + distance.getSecondCoordinate());
         
-        double angularDistance = calculator.calculateDistance(distance.getFirstCoordinate(), distance.getSecondCoordinate(), distance.getUnit());
+        BigDecimal angularDistance = calculator.calculateDistance(distance.getFirstCoordinate(), distance.getSecondCoordinate(), distance.getUnit());
         distance.setDistance(angularDistance);
         return distance;
     }

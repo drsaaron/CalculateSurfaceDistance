@@ -7,6 +7,7 @@ package com.blazartech.products.calculateangulardistance.calc;
 
 import com.blazartech.products.calculateangulardistance.Coordinate;
 import com.blazartech.products.calculateangulardistance.DistanceUnit;
+import java.math.BigDecimal;
 
 /**
  *
@@ -14,5 +15,5 @@ import com.blazartech.products.calculateangulardistance.DistanceUnit;
  */
 public interface CalculateAngularDistancePAB {
     
-    public double calculateDistance(Coordinate firstCoordinate, Coordinate secondCoordinate, DistanceUnit unit);
+    public BigDecimal calculateDistance(Coordinate firstCoordinate, Coordinate secondCoordinate, DistanceUnit unit);
 }

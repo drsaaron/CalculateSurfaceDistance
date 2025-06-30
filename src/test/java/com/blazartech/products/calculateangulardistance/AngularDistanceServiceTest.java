@@ -8,6 +8,7 @@ import com.blazartech.products.calculateangulardistance.calc.CalculateAngularDis
 import com.blazartech.products.calculateangulardistance.calc.CalculateAngularDistancePABImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,7 +82,7 @@ public class AngularDistanceServiceTest {
     private String secondCoordinateString;
     
     @Value("${expectedDistance}")
-    private double expectedDistance;
+    private BigDecimal expectedDistance;
     
     private Coordinate buildCoordinate(String coordinateString) {
         String[] pieces = coordinateString.split(",");
@@ -132,7 +133,7 @@ public class AngularDistanceServiceTest {
             AngularDistance createdDistance = objectMapper.readValue(response, AngularDistance.class);
 
             assertNotNull(createdDistance);
-            assertEquals(expectedDistance, createdDistance.getDistance(), 0.0);
+            assertEquals(expectedDistance.doubleValue(), createdDistance.getDistance().doubleValue(), 0.0);
 
         } catch (Exception e) {
             throw new RuntimeException("error running test: " + e.getMessage(), e);

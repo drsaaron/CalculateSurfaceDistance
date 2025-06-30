@@ -5,6 +5,7 @@
  */
 package com.blazartech.products.calculateangulardistance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 
 /**
@@ -13,7 +14,10 @@ import java.io.Serializable;
  */
 public class Coordinate implements Serializable {
     
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private double latitude;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private double longitude;
 
     public double getLatitude() {

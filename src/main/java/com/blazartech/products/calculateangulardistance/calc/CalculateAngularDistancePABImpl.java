@@ -9,6 +9,7 @@ import com.blazartech.products.calculateangulardistance.Coordinate;
 import com.blazartech.products.calculateangulardistance.DistanceUnit;
 import static com.blazartech.products.calculateangulardistance.DistanceUnit.kilometers;
 import static com.blazartech.products.calculateangulardistance.DistanceUnit.miles;
+import java.math.BigDecimal;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ public class CalculateAngularDistancePABImpl implements CalculateAngularDistance
     );
         
     @Override
-    public double calculateDistance(Coordinate firstCoordinate, Coordinate secondCoordinate, DistanceUnit distanceUnit) {
+    public BigDecimal calculateDistance(Coordinate firstCoordinate, Coordinate secondCoordinate, DistanceUnit distanceUnit) {
         logger.info("calculating distance between {} and {} with units {}", firstCoordinate,secondCoordinate, distanceUnit);
         
         // do the calculation myself according to https://en.wikipedia.org/wiki/Great-circle_distance
@@ -54,7 +55,7 @@ public class CalculateAngularDistancePABImpl implements CalculateAngularDistance
         double earthRadius = EARTH_RADIUS.get(distanceUnit);
         double myDistance = Math.round(earthRadius * delSigma);
         
-        return myDistance;
+        return BigDecimal.valueOf(myDistance);
     }
     
 }

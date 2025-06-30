@@ -5,7 +5,9 @@
  */
 package com.blazartech.products.calculateangulardistance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  *
@@ -15,7 +17,10 @@ public class AngularDistance implements Serializable {
     
     private Coordinate firstCoordinate;
     private Coordinate secondCoordinate;
-    private double distance;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private BigDecimal distance;
+    
     private DistanceUnit unit;
 
     public DistanceUnit getUnit() {
@@ -42,11 +47,11 @@ public class AngularDistance implements Serializable {
         this.secondCoordinate = secondCoordinate;
     }
 
-    public double getDistance() {
+    public BigDecimal getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(BigDecimal distance) {
         this.distance = distance;
     }
     
