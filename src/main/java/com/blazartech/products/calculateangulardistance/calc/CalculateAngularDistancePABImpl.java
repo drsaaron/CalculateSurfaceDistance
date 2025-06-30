@@ -42,10 +42,10 @@ public class CalculateAngularDistancePABImpl implements CalculateAngularDistance
         logger.info("calculating distance between {} and {} with units {}", firstCoordinate,secondCoordinate, distanceUnit);
         
         // do the calculation myself according to https://en.wikipedia.org/wiki/Great-circle_distance
-        double firstLatitude = toRadians(firstCoordinate.getLatitude());
-        double firstLongitude = toRadians(firstCoordinate.getLongitude());
-        double secondLatitude = toRadians(secondCoordinate.getLatitude());
-        double secondLongitude = toRadians(secondCoordinate.getLongitude());
+        double firstLatitude = toRadians(firstCoordinate.latitude());
+        double firstLongitude = toRadians(firstCoordinate.longitude());
+        double secondLatitude = toRadians(secondCoordinate.latitude());
+        double secondLongitude = toRadians(secondCoordinate.longitude());
 
         double delLatitude = secondLatitude - firstLatitude;
         double delLongitude = secondLongitude - firstLongitude;

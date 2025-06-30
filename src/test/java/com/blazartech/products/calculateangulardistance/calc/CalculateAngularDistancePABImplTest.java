@@ -36,7 +36,7 @@ public class CalculateAngularDistancePABImplTest {
     
     @TestConfiguration
     @PropertySource("classpath:test.properties")
-    static class CalculateAngularDistancePABImplTestConfiguration {
+    public static class CalculateAngularDistancePABImplTestConfiguration {
         
         @Bean
         public CalculateAngularDistancePABImpl getCalculateAngularDistancePABImpl() {
@@ -58,9 +58,7 @@ public class CalculateAngularDistancePABImplTest {
     
     private Coordinate buildCoordinate(String coordinateString) {
         String[] pieces = coordinateString.split(",");
-        Coordinate c = new Coordinate();
-        c.setLatitude(Double.parseDouble(pieces[0]));
-        c.setLongitude(Double.parseDouble(pieces[1]));
+        Coordinate c = new Coordinate(Double.valueOf(pieces[0]), Double.valueOf(pieces[1]));
         return c;
     }
     
