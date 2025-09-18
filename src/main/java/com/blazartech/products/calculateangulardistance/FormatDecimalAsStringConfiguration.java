@@ -7,13 +7,15 @@ package com.blazartech.products.calculateangulardistance;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.jackson.autoconfigure.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -55,9 +57,16 @@ public class FormatDecimalAsStringConfiguration {
      * @return 
      */
     @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
-        return builder -> builder.serializationInclusion(JsonInclude.Include.NON_NULL)
-                .serializerByType(Double.class, new ToStringSerializer<Double>( d -> Double.toString(d) ))
-                .serializerByType(BigDecimal.class, new ToStringSerializer<BigDecimal>( bd -> bd.toString() ));
+    public ObjectMapper objectMapper() {
+        SimpleModule sm = new SimpleModule();
+        sm.addSerializer(Double.class, new ToStringSerializer<>( d -> Double.toString(d) ));
+        sm.addSerializer(BigDecimal.class, new ToStringSerializer<>( bd -> bd.toString() ));
+
+        JsonMapper mapper = JsonMapper.builder()
+                .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .addModule(sm)
+                .build();
+        
+        return mapper;
     }
 }
