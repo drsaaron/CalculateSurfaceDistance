@@ -4,20 +4,18 @@
  */
 package com.blazartech.products.calculateangulardistance;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.json.JsonMapper.Builder;
+import tools.jackson.databind.module.SimpleModule;
 
 /**
  *
@@ -29,10 +27,10 @@ public class FormatDecimalAsStringConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(FormatDecimalAsStringConfiguration.class);
     
     // a generic serializer to convert things to string values.
-    private static class ToStringSerializer<T> extends JsonSerializer<T> {
+    private static class ToStringSerializer<T> extends ValueSerializer<T> {
 
         @Override
-        public void serialize(T t, JsonGenerator jg, SerializerProvider sp) throws IOException {
+        public void serialize(T t, JsonGenerator jg, SerializationContext sp) {
             logger.info("serializing decimal value {}", t);
             if (null == t) {
                 jg.writeNull();
@@ -46,7 +44,7 @@ public class FormatDecimalAsStringConfiguration {
 
         public ToStringSerializer(Function<T, String> stringConverter) {
             this.stringConverter = stringConverter;
-        }        
+        }
         
     }
 
@@ -55,18 +53,16 @@ public class FormatDecimalAsStringConfiguration {
      * Double and BigDecimal values as strings.  This is done instead of @JsonFormat
      * annotations on properties in order to be more re-usable.
      * @return 
-     */
+     */    
     @Bean
-    public ObjectMapper objectMapper() {
-        SimpleModule sm = new SimpleModule();
+    public Builder objectMapper() {
+        SimpleModule sm = new SimpleModule();        
         sm.addSerializer(Double.class, new ToStringSerializer<>( d -> Double.toString(d) ));
         sm.addSerializer(BigDecimal.class, new ToStringSerializer<>( bd -> bd.toString() ));
 
-        JsonMapper mapper = JsonMapper.builder()
-                .serializationInclusion(JsonInclude.Include.NON_NULL)
-                .addModule(sm)
-                .build();
-        
+        Builder mapper = JsonMapper.builder()
+  //              .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .addModule(sm);
         return mapper;
     }
 }
